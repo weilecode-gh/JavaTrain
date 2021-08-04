@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="cn.wolfcode.mybatis.mapper.UserMapper">
+        <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+            insert into user(name,age,salary,hiredate) values(#{name},#{age},#{salary},#{hiredate})
+        </insert>
+
+        <select id="selectOne" resultType="cn.wolfcode.mybatis.domain.User">
+            select * from user where id = #{userID}
+        </select>
+
+        <select id="selectAll" resultType="cn.wolfcode.mybatis.domain.User">
+            select * from user
+        </select>
+
+        <delete id="delete">
+            delete from user where id = #{userID}
+        </delete>
+
+        <update id="update">
+            update user set name = #{name},age = #{age},salary = #{salary},hiredate = #{hiredate} where id = #{id}
+        </update>
+    </mapper>
