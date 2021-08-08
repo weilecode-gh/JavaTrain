@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.mybatis.mapper.EmployeeMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into employee(name,deptId) values(#{name},#{dept.id})
+    </insert>
+
+    <resultMap id="employeeResultMap" type="employee">
+<!--        哪一列的值封装到对应的对象属性上
+            主键用id
+            非主键用result
+            Employee employee = new Employee();
+            employee.setId(id)
+            employee.setName(name)
+            Department dept = new Department();
+            department
+            employee.setDept(dept)
+            resultType 字段名要和对象属性名相同
+            结果映射：ORM思想
+            -->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+<!--        使用额外sql
+            association 针对的关联属性配置，非集合类型
+            select   发送什么额外sql
+            column   发送额外sql取上一条的sql的什么值
+            property 封装员工对象什么属性
+-->
+        <association property="dept" select="cn.wolfcode.mybatis.mapper.DepartmentMapper.get" column="deptId" javaType="Department"/>
+<!--        <result column="deptId" property="dept.id"/>-->
+    </resultMap>
+
+    <select id="get" resultMap="employeeResultMap">
+        select * from employee where id = #{id}
+    </select>
+
+    <resultMap id="baseResultMap" type="employee">
+        <id column="e_id" property="id"/>
+        <result column="e_name" property="name"/>
+        <result column="d_id" property="dept.id"/>
+        <result column="d_name" property="dept.name"/>
+    </resultMap>
+
+    <select id="listAll" resultMap="baseResultMap">
+        select e.id as e_id, e.name as e_name, d.id as d_id, d.name as d_name
+        from employee e join department d on e.deptId = d.id
+    </select>
+
+</mapper>

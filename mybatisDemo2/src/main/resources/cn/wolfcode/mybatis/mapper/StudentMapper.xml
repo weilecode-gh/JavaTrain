@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--xml namespace should use its interface all-name  interface's package name and interface name-->
+<mapper namespace="cn.wolfcode.mybatis.mapper.StudentMapper">
+    <insert id="addStu">
+        insert into student(name, age, email) values(#{name}, #{age}, #{email})
+    </insert>
+
+    <select id="selectStu" resultType="Student">
+        select * from student where id = #{id}
+    </select>
+
+    <update id="updateStu">
+        update student
+        <set>
+            <if test="name != null">
+                name = #{name}
+            </if>
+            <if test="age != null">
+                age = #{age}
+            </if>
+            <if test="email != null">
+                email = #{email}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStu">
+        delete from student where id in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

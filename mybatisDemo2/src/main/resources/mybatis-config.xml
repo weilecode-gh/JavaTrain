@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!---->
+    <properties resource="db.properties"/>
+    <!--type other name-->
+    <typeAliases>
+        <package name="cn.wolfcode.mybatis.domain"/>
+    </typeAliases>
+    <environments default="dev">
+        <environment id="dev">
+            <!-- mybatis 事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!-- mybatis 的默认数据库连接池
+               POOLED 是mybatis 提供的数据库连接池
+            -->
+            <dataSource type="POOLED">
+                <!-- 配置数据库连接池的4基本属性-->
+                <property name="driver" value="${driverClassName}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="cn\wolfcode\mybatis\mapper\UserMapper.xml"/>
+        <mapper resource="cn\wolfcode\mybatis\mapper\EmployeeMapper.xml"/>
+        <mapper resource="cn\wolfcode\mybatis\mapper\StudentMapper.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--xml namespace should use its interface all-name  interface's package name and interface name-->
+<mapper namespace="cn.wolfcode.mybatis.mapper.UserMapper">
+<!--    mapper interface method name should be same with Mapper xml doc (select\update....)-->
+    <insert id="addUser">
+        insert into user (name, password, age, salary, hiredate)
+        values (#{name},#{password},#{age},#{salary},#{hiredate});
+    </insert>
+
+    <select id="login">
+        select * from user where name = #{name} and password = #{password}
+    </select>
+
+    <select id="login1" resultType="User">
+        select * from user where name = #{name} and password = #{password}
+    </select>
+
+    <select id="login2" resultType="User">
+        select * from user where name = #{name} and password = #{password}
+    </select>
+
+    <select id="login3" resultType="User">
+        select * from user where name = #{username} and password = #{password}
+    </select>
+
+    <select id="queryByName1" resultType="User">
+
+    </select>
+</mapper>
